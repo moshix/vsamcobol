@@ -1,6 +1,10 @@
 # vsamcobol is a repository of an assembler module and installation and resting jobs to allow MVT Cobol in MVS 3.8 with TK4 to work with VSAM
 
+All programs and data are by Jay Moseley and not by moshix!!!
+refer to:  http://www.jaymoseley.com/hercules/vsam_io/vscobol.htm
+
 Installing the Routine
+----------------------
 
 Either clone this repository, or download and uncompress this archive with the command:
 
@@ -40,37 +44,69 @@ If you want to execute the suite of test programs I used, refer to the remaining
 Here is a cross-reference of the jobstreams contained in that archive, the COBOL test program they use, and function of the jobstream and/or program:
 
 
-Jobstream
+Jobstream       COBOL PROGRAM  FUNCTION
+---------       -------------- ----------
 
-COBOL Program
 
-Function
 
-VSTEST01.JCL    n/a Creates a sequential dataset of 100 instream card images used in subsequent jobstreams.  DSN=SYS2.VSAMTEST.DATA, UNIT=3350, VOL=SER=PUB001
-VSTESTE1.JCL    n/a Uses IDCAMS to delete and then define an empty Entry Sequenced cluster.  DSN=VSTESTES.CLUSTER, VOL=SER=MVS803, suballocated out of existing space
-VSTESTE2.JCL    ESDSLOAD    Reads images from non-VSAM dataset and writes them into VSAM Entry Sequenced cluster.
+VSTEST01.JCL    n/a             Creates a sequential dataset of 100 instream card images used in subsequent jobstreams.  DSN=SYS2.VSAMTEST.DATA, UNIT=3350, VOL=SER=PUB001
+
+VSTESTE1.JCL    n/a           Uses IDCAMS to delete and then define an empty Entry Sequenced cluster.  DSN=VSTESTES.CLUSTER, VOL=SER=MVS803, suballocated out of existing space
+
+VSTESTE2.JCL    ESDSLOAD       Reads images from non-VSAM dataset and writes them into VSAM Entry Sequenced cluster.
+
 VSTESTE3.JCL    ESDSREAD    Reads images from VSAM Entry Sequenced cluster and displays them on SYSOUT.
+
 VSTESTE4.JCL    ESDSUPDT    Reads images sequentially from VSAM Entry Sequenced cluster and selectively updates records.
+
 VSTESTE5.JCL    ESDSADDT    Reads images from SYSIN and appends to VSAM Entry Sequenced cluster.
-VSTESTR1.JCL    n/a Uses IDCAMS to delete and then define an empty Numbered cluster.  DSN=VSTESTRR.CLUSTER, VOL=SER=MVS803, suballocated out of existing space
+
+VSTESTR1.JCL    n/a        Uses IDCAMS to delete and then define an empty Numbered cluster.  DSN=VSTESTRR.CLUSTER, VOL=SER=MVS803, suballocated out of existing space
+
 VSTESTR2.JCL    RRDSLODS    Reads images from non-VSAM dataset and writes them into VSAM Numbered cluster, generating sequential relative record numbers ranging from 1 through 100.
+
 VSTESTR3.JCL    RRDSREAD    Reads images from VSAM Numbered cluster and displays them on SYSOUT.
+
 VSTESTR4.JCL    RRDSLODR    Reads images from non-VSAM dataset and writes them into VSAM Numbered cluster, deriving relative record number from portion of data record, leaving embedded empty record slots.  (Note, you will need to rerun VSTESTR1.JCL prior to this job if you have already run VSTESTR2.JCL.)
+
 VSTESTR5.JCL    RRDSUPDT    Reads images sequentially from VSAM Numbered cluster and selectively updates and deletes records.
+
 VSTESTR6.JCL    RRDSRAND    Randomly updates VSAM Numbered cluster - adds, updates, and deletes images, using data from SYSIN.
+
 VSTESTR7.JCL    RRDSSSEQ    Issues START against VSAM Numbered cluster, using both Key Equal and Key Greater Than or Equal options, then reads sequentially forward from started position.
+
 VSTESTK1.JCL    n/a Uses IDCAMS to delete and then define an empty Indexed cluster.  DSN=VSTESTKS.CLUSTER, VOL=SER=MVS803, suballocated out of existing space
+
 VSTESTK2.JCL    KSDSLOAD    Reads images from non-VSAM dataset and writes them into VSAM Indexed cluster.
+
 VSTESTK3.JCL    KSDSREAD    Reads images from VSAM Indexed cluster and displays them on SYSOUT.
+
 VSTESTK4.JCL    KSDSUPDT    Reads images sequentially from VSAM Indexed cluster and selectively updates and deletes records.
+
 VSTESTK5.JCL    KSDSRAND    Randomly updates VSAM Indexed cluster - adds, updates, and deletes images, using data from SYSIN.
+
 VSTESTK6.JCL    KSDSSSEQ    Issues START against VSAM Indexed cluster, using both Key Equal and Key Greater Than or Equal options, then reads sequentially forward from started position.
+
 LISTCATE.JCL    n/a Uses IDCAMS to list catalog entry for Entry Sequenced cluster: VSTESTES.CLUSTER.
+
 LISTCATR.JCL    n/a Uses IDCAMS to list catalog entry for Numbered cluster: VSTESTRR.CLUSTER.
+
 LISTCATK.JCL    n/a Uses IDCAMS to list catalog entry for Indexed cluster: VSTESTKS.CLUSTER.
+
 PRINTE.JCL  n/a Uses IDCAMS to print contents for Entry Sequenced cluster:  VSTESTES.CLUSTER.
+
 PRINTR.JCL  n/a Uses IDCAMS to print contents for Numbered cluster:  VSTESTRR.CLUSTER.
+
 PRINTK.JCL  n/a Uses IDCAMS to print contents for Indexed cluster:  VSTESTKS.CLUSTER.
+
 VSTEST02.JCL    KSDSLVAR    Reads card images from SYSIN and loads a variable length, indexed cluster: VSTESTK1.CLUSTER.  This dataset is required by KSDSMULT described below.
+
 VSTEST03.JCL    KSDSMULT    Sequentially reads a variable length, indexed cluster - VSTESTK1.CLUSTER - and randomly reads corresponding records from three fixed length indexed clusters - VSTESTK2.CLUSTER, VSTESTK3.CLUSTER, VSTESTK4.CLUSTER - to produce a report.
+
 VSTEST99.JCL    n/a Uses IDCAMS to delete all test datasets (Non-VSAM and VSAM) created in this test suite.
+
+
+
+
+All programs and data are by Jay Moseley and not by moshix!!! 
+refer to:  http://www.jaymoseley.com/hercules/vsam_io/vscobol.htm
